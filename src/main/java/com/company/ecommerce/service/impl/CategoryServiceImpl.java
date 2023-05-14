@@ -1,30 +1,48 @@
 package com.company.ecommerce.service.impl;
 
-import com.company.ecommerce.entity.Brand;
+import com.company.ecommerce.dto.request.CategoryRequest;
+import com.company.ecommerce.dto.response.ResponseDto;
 import com.company.ecommerce.entity.Category;
-import com.company.ecommerce.entity.Product;
-import com.company.ecommerce.service.CartService;
+import com.company.ecommerce.exception.NotFoundException;
+import com.company.ecommerce.repository.CategoryRepository;
 import com.company.ecommerce.service.CategoryService;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
+
+    private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
+
+    pub Category mapToCategory(CategoryRepository category) {
+        return modelMapper.map(category, Category.class);
+    }
+
     @Override
     public ResponseEntity<List<Category>> findAllCategories() {
-        return null;
+
+        return categoryRepository.findAll().stream()
+                .map(this::mapToCategory) // Using method reference
+                .collect(Collectors.toList());
     }
 
-    @Override
-    public ResponseEntity<Category> register(Category category) {
-        return null;
+    public ResponseEntity<ResponseDto> register(CategoryRequest categoryRequest) {
+        categoryRepository.save(modelMapper.map(categoryRequest, Category.class));
+        return ResponseEntity.ok(new ResponseDto("Registered Successfully!"));
     }
 
+    // {id} part
     @Override
-    public ResponseEntity<Category> findCategoryById(Long id) {
-        return null;
+    public Category findCategoryById(Long id) {
+        return categoryRepository.findById(id).
+                orElseThrow(NotFoundException::new);
     }
 
     @Override
@@ -32,43 +50,4 @@ public class CategoryServiceImpl implements CategoryService {
         return null;
     }
 
-    @Override
-    public ResponseEntity<List<Brand>> findAllBrands() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Brand> register(Brand brand) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Brand> findBrandById(Long id) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<String> updateBrand(Brand brand) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<Product>> findAllProducts() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Product> register(Product product) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Product> findProductById(Long id) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<String> updateProduct(Product product) {
-        return null;
-    }
 }

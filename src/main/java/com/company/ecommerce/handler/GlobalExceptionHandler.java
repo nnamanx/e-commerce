@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler({NotFoundException.class, IllegalArgumentException.class})
+    @ExceptionHandler({NotFoundException.class, NotFoundException.class})//?
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ExceptionResponse handle(){
         return ExceptionResponse.builder()
