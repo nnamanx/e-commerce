@@ -1,7 +1,12 @@
 package com.company.ecommerce.service.impl;
 
+import com.company.ecommerce.dto.request.BrandRequest;
+import com.company.ecommerce.dto.response.BrandResponse;
+import com.company.ecommerce.dto.response.ResponseDto;
 import com.company.ecommerce.entity.Brand;
 import com.company.ecommerce.entity.Category;
+import com.company.ecommerce.exception.BrandNotFoundException;
+import com.company.ecommerce.exception.NotFoundException;
 import com.company.ecommerce.repository.BrandRepository;
 import com.company.ecommerce.repository.CategoryRepository;
 import com.company.ecommerce.service.BrandService;
@@ -21,23 +26,27 @@ public class BrandServiceImpl implements BrandService {
     private final ModelMapper modelMapper;
 
     @Override
-    public ResponseEntity<List<Brand>> findAllBrands() {
-        return (ResponseEntity<List<Brand>>) brandRepository.findAll().stream()
-                .map(category -> modelMapper.map(category, BrandRepository.class)).collect((Collectors.toList()));
+    public List<BrandResponse> findAllBrands() {
+        return brandRepository.findAll().stream()
+                .map(brand -> modelMapper.map(brand, BrandResponse.class))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public ResponseEntity<Brand> register(Brand brand) {
-        return null;
+    public ResponseEntity<ResponseDto> register(BrandRequest brandRequest) {
+        brandRepository.save(modelMapper.map(brandRequest, Brand.class));
+        return ResponseEntity.ok(new ResponseDto("Registered Successfully!"));
     }
 
     @Override
-    public ResponseEntity<Brand> findBrandById(Long id) {
-        return null;
+    public BrandResponse findBrandById(Long id) {
+        return modelMapper.map(brandRepository.findById(id)
+                .orElseThrow(BrandNotFoundException::new), BrandResponse.class);
     }
 
     @Override
-    public ResponseEntity<String> updateBrand(Brand brand) {
-        return null;
+    public ResponseEntity<ResponseDto> updateBrand(BrandRequest brandRequest) {
+        brandRepository.save(modelMapper.map(brandRequest, Brand.class));
+        return ResponseEntity.ok(new ResponseDto("Updated Successfully!"));
     }
 }

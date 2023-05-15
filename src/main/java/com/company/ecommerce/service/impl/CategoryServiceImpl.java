@@ -1,8 +1,10 @@
 package com.company.ecommerce.service.impl;
 
 import com.company.ecommerce.dto.request.CategoryRequest;
+import com.company.ecommerce.dto.response.CategoryResponse;
 import com.company.ecommerce.dto.response.ResponseDto;
 import com.company.ecommerce.entity.Category;
+import com.company.ecommerce.exception.CategoryNotFoundException;
 import com.company.ecommerce.exception.NotFoundException;
 import com.company.ecommerce.repository.CategoryRepository;
 import com.company.ecommerce.service.CategoryService;
@@ -21,15 +23,15 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
-    pub Category mapToCategory(CategoryRepository category) {
+    public Category mapToCategory(CategoryRepository category) {
         return modelMapper.map(category, Category.class);
-    }
+    } //no need
 
     @Override
-    public ResponseEntity<List<Category>> findAllCategories() {
+    public List<CategoryResponse> findAllCategories() {
 
         return categoryRepository.findAll().stream()
-                .map(this::mapToCategory) // Using method reference
+                .map(category -> modelMapper.map(category, CategoryResponse.class))
                 .collect(Collectors.toList());
     }
 
@@ -40,14 +42,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     // {id} part
     @Override
-    public Category findCategoryById(Long id) {
-        return categoryRepository.findById(id).
-                orElseThrow(NotFoundException::new);
+    public CategoryResponse findCategoryById(Long id) {
+        return modelMapper.map(
+                categoryRepository.findById(id)
+                        .orElseThrow(CategoryNotFoundException::new), CategoryResponse.class);
     }
 
     @Override
-    public ResponseEntity<String> updateCategory(Category category) {
-        return null;
+    public ResponseEntity<ResponseDto> updateCategory(CategoryRequest categoryRequest) {
+        categoryRepository.save(modelMapper.map(categoryRequest, Category.class));
+        return ResponseEntity.ok(new ResponseDto("Updated Successfully!"));
     }
 
 }

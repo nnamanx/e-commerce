@@ -1,19 +1,23 @@
 package com.company.ecommerce.service;
 
+import com.company.ecommerce.dto.request.BrandRequest;
+import com.company.ecommerce.dto.response.BrandResponse;
+import com.company.ecommerce.dto.response.ResponseDto;
 import com.company.ecommerce.entity.Brand;
+import com.company.ecommerce.repository.BrandRepository;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
 public interface BrandService {
-    ResponseEntity<List<Brand>> findAllBrands();
+    List<BrandResponse> findAllBrands();
 
-    ResponseEntity<Brand> register(Brand brand);
+    ResponseEntity<ResponseDto> register(BrandRequest brandRequest);
 
     // /{id}
-    ResponseEntity<Brand> findBrandById(Long id);
+    BrandResponse findBrandById(Long id);
 
-    ResponseEntity<String> updateBrand(Brand brand);
+    ResponseEntity<ResponseDto> updateBrand(BrandRequest brandRequest);
 
 
 }
