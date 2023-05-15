@@ -5,7 +5,6 @@ import com.company.ecommerce.dto.response.CategoryResponse;
 import com.company.ecommerce.dto.response.ResponseDto;
 import com.company.ecommerce.entity.Category;
 import com.company.ecommerce.exception.CategoryNotFoundException;
-import com.company.ecommerce.exception.NotFoundException;
 import com.company.ecommerce.repository.CategoryRepository;
 import com.company.ecommerce.service.CategoryService;
 import lombok.RequiredArgsConstructor;
