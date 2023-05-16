@@ -22,7 +22,7 @@ public class Cart {
     double totalAmount;
 
 
-    @OneToMany (mappedBy = "cart", cascade = CascadeType.PERSIST) //?
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST) //?
     List<Product> products;
 
     @OneToOne(cascade = CascadeType.MERGE)

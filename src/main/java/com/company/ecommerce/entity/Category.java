@@ -22,7 +22,7 @@ public class Category {
     String name;
     String info;
 
-    @ManyToMany (mappedBy = "categories")
+    @ManyToMany(mappedBy = "categories")
     List<Brand> brands;
 
 

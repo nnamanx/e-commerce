@@ -5,7 +5,6 @@ import com.company.ecommerce.dto.response.CartResponse;
 import com.company.ecommerce.dto.response.ResponseDto;
 import com.company.ecommerce.entity.Cart;
 import com.company.ecommerce.exception.CartNotFoundException;
-import com.company.ecommerce.exception.NotFoundException;
 import com.company.ecommerce.repository.CartRepository;
 import com.company.ecommerce.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +39,6 @@ public class CartServiceImpl implements CartService {
     public ResponseEntity<ResponseDto> delete(Long id) {
         cartRepository.delete(cartRepository.findById(id)
                 .orElseThrow(CartNotFoundException::new));
-        //write CART_NOT_FOUND_EXCEPTION
         return ResponseEntity.ok(new ResponseDto("The product is removed successfully!"));
     }
 
@@ -48,7 +46,6 @@ public class CartServiceImpl implements CartService {
     public CartResponse findProductById(Long id) {
         return modelMapper.map(
                 cartRepository.findById(id).orElseThrow(CartNotFoundException::new), CartResponse.class);
-        //write CART_NOT_FOUND_EXCEPTION
     }
 
 }

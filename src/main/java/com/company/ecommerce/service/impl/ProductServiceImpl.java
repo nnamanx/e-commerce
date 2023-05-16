@@ -4,7 +4,6 @@ import com.company.ecommerce.dto.request.ProductRequest;
 import com.company.ecommerce.dto.response.ProductResponse;
 import com.company.ecommerce.dto.response.ResponseDto;
 import com.company.ecommerce.entity.Product;
-import com.company.ecommerce.exception.NotFoundException;
 import com.company.ecommerce.exception.ProductNotFoundException;
 import com.company.ecommerce.repository.ProductRepository;
 import com.company.ecommerce.service.ProductService;
