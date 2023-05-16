@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class BrandNotFoundExceptionHandler {
 
@@ -16,6 +18,7 @@ public class BrandNotFoundExceptionHandler {
     public ExceptionResponse handle() {
         return ExceptionResponse.builder()
                 .message(ExceptionMessageEnum.BRAND_NOT_FOUND_EXCEPTION.name())
+                .localDateTime(LocalDateTime.now())
                 .build();
     }
 }

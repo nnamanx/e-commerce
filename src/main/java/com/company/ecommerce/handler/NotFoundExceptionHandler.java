@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class NotFoundExceptionHandler {
     @ExceptionHandler({NotFoundException.class, NotFoundException.class})
@@ -15,6 +17,7 @@ public class NotFoundExceptionHandler {
     public ExceptionResponse handle() {
         return ExceptionResponse.builder()
                 .message(ExceptionMessageEnum.NOT_FOUND_EXCEPTION.name())
+                .localDateTime(LocalDateTime.now())
                 .build();
     }
 }

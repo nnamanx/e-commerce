@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
     } //no need
 
     @Override
-    public List<CategoryResponse> findAllCategories() {
+    public List<CategoryResponse> findAll() {
 
         return categoryRepository.findAll().stream()
                 .map(category -> modelMapper.map(category, CategoryResponse.class))

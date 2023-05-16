@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/category/brand")
+@RequestMapping("/category/brand")
 public class BrandController {
 
     private final BrandService brandService;

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class CategoryNotFoundExceptionHandler {
 
@@ -16,6 +18,7 @@ public class CategoryNotFoundExceptionHandler {
     public ExceptionResponse handle() {
         return ExceptionResponse.builder()
                 .message(ExceptionMessageEnum.CATEGORY_NOT_FOUND_EXCEPTION.name())
+                .localDateTime(LocalDateTime.now())
                 .build();
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/category")
+@RequestMapping("/category")
 public class CategoryController {
     private final CategoryService categoryService;
 //    private static final Logger logger = (Logger) LoggerFactory.getLogger(CategoryController.class);
@@ -22,7 +22,7 @@ public class CategoryController {
     @GetMapping
     List<CategoryResponse> findAllCategories() {
         log.info("GET - /category -> request none");
-        List<CategoryResponse> response = categoryService.findAllCategories();
+        List<CategoryResponse> response = categoryService.findAll();
         log.info("GET - /category -> response: {}", response);
         return response;
 

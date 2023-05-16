@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CategoryService {
     // /categories
-    List<CategoryResponse> findAllCategories();
+    List<CategoryResponse> findAll();
 
     ResponseEntity<ResponseDto> register(CategoryRequest categoryRequest);
 
